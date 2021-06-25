@@ -154,10 +154,10 @@ bot.on('message', msg => {
 // HOST SECTION (just a quick and fun example of running commands directly from server)
 rl.on('line', (input) => {
     let inputArgs = input.split(/ +/g);
-    let message = input.substring(22);
-    if(inputArgs[0] == 'msg') {
-      bot.channels.get(inputArgs[1]).send(message);
-      console.log('Message sent!');
+    if(inputArgs[0] == 'msg' && input.length > 21) {
+        let message = input.substring(22);
+        bot.channels.get(inputArgs[1]).send(message);
+        console.log('Message sent!');
     }   
   });
 
