@@ -1,0 +1,25 @@
+{
+    "name": "discord-bot",
+    "version": "1.0.0",
+    "description": "Discord bot for SitePoint",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Michiel Mulders",
+    "license": "ISC",
+    "dependencies": {
+        "dav": "^1.8.0",
+        "discord.js": "^11.5.1",
+        "dotenv": "^8.2.0",
+        "ical-generator": "^1.15.4",
+        "ical-parser": "^1.2.0",
+        "ical.js": "^1.4.0",
+        "loadenv": "^2.2.0",
+        "moment": "^2.29.1",
+        "needle": "^2.6.0",
+        "node-ical": "^0.13.0",
+        "webdav": "^4.6.0",
+        "xml2js": "^0.4.23"
+    }
+}
