@@ -3,13 +3,13 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const TOKEN = process.env.TOKEN;
 const readline = require('readline'); // added for example shown later
-const { getEventBySummary } = require("./calendarEvents");
+const { getAllEvents, getEventsByDay } = require("./calendarEvents");
 // ah, yes. a prefix is usually a good idea. Let's move it to the .env file for continuity's sake tho ;)
 let prefix = process.env.PREFIX; // command prefix
 
 bot.on('ready', () => {
     console.info(`Logged in as ${bot.user.tag}!`);
-    getEventBySummary();
+    getAllEvents();
 });
 
 // added for example shown later
@@ -28,7 +28,7 @@ bot.on('message', msg => {
         let cmd = msg.content.substr(1); // command without prefix
 
         if (cmd.startsWith('call')) {
-            getEventBySummary(msg);
+            getAllEvents(msg);
         } else if (cmd.startsWith('kick ')) {
             if (msg.mentions.users.size) {
                 const taggedUser = msg.mentions.users.first();

@@ -18,7 +18,7 @@ ics (or ical) files basically are formatted like json files, i.e. file{ uid[key]
 */
 
 // This is intended to be one of a few functions that pull calendar information from the webDAV server
-async function getEventBySummary(msg) {
+async function getAllEvents(msg) {
     const directoryItems = await client.getDirectoryContents("/"); // directoryItems is a list of all the files within the root directory
     console.log("total number of events: " + directoryItems.length); //debug text
     for (const file of directoryItems) { // so for each file within the root directory ...
@@ -40,8 +40,31 @@ async function getEventBySummary(msg) {
             }
         }
     }
+}
 
+async function getEventsByDay(msg, date) {
 
 }
+
+async function getNextEvent(msg) {
+
+}
+
+async function getEventByName(msg) {
+
+}
+
+async function getEventByAtendee(msg, user) {
+
+}
+
+async function getEventByPlannedDate(msg, date) {
+
+}
+
+async function getAllFutureEvents(msg, date) {
+
+}
+
 // export to index
-module.exports = { getEventBySummary };
+module.exports = { getAllEvents, getEventsByDay, getNextEvent, getEventByName };
