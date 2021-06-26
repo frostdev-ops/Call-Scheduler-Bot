@@ -3,6 +3,7 @@ const { createClient } = require("webdav"); // webdav lib for getting/writing ca
 const CAL_USER = process.env.CALDAV_USERNAME;
 const CAL_PASS = process.env.CALDAV_PASSWORD;
 const CAL_URL = process.env.CALDAV_URL;
+const { Event, ParsedDate, parseDate, parseUser, storeUser, updateUser, deleteUser } = require('./utils.js');
 // creates the initial connection to the webdav server and creates a client for easy future access
 const client = createClient(
     CAL_URL, {
@@ -34,9 +35,11 @@ async function getAllEvents(msg) {
         console.log("---------------------------");
         for (const p in webEvents) { // for each uid within the file
             if (msg != undefined || msg != null) { // make sure msg isn't null so this command can be run anywhere, not just when prompted by a user
+                let startDate = await parseDate(webEvents[p]["start"])
+                let plannedOn = await parseDate(webEvents[p]["created"])
                 msg.channel.send("Event Title: " + webEvents[p]["summary"] + // further extract only the information needed from the parsed ical data and send message to origin chat
-                    "\nEvent date/time: " + webEvents[p]["start"] +
-                    "\nPlanned on: " + webEvents[p]["created"]);
+                    "\nThe event was scheduled to take place on  " + startDate.wd + ", " + startDate.month + " " + startDate.day + ", " + startDate.year + " at " + startDate.hour + ":" + startDate.minute + startDate.AM_PM +
+                    "\nit was planned on: " + webEvents[p]["created"]);
             }
         }
     }

@@ -1,8 +1,4 @@
 class Event {
-    users = new Map();
-    title = new String();
-    date = new Date();
-    description = new String();
     constructor(title, date) {
         this.title = title;
         this.date = date;
@@ -34,52 +30,65 @@ class Event {
 }
 
 class ParsedDate {
-    day = new String();
-    month = new String();
-    year = new String();
-    hour = new String();
-    minute = new String();
-    AM_PM = new String();
-
-    constructor(day, month, year, hour, minute, night_day) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.hour = hour;
-        this.minute = minute;
-        this.AM_PM = night_day;
+    constructor(week_day, Day, Month, Year, Hour, Minute, Night_day) {
+        this.d = Day;
+        this.m = Month;
+        this.y = Year;
+        this.h = Hour;
+        this.min = Minute;
+        this.ampm = Night_day;
+        this.wd = week_day;
+    }
+    get day() {
+        return this.d;
+    }
+    get weekday() {
+        return this.wd;
+    }
+    get month() {
+        return this.m;
+    }
+    get hour() {
+        return this.h;
+    }
+    get minute() {
+        return this.min;
+    }
+    get AM_PM() {
+        return this.ampm;
+    }
+    get year() {
+        return this.y;
     }
 }
 
-class User {
-    eventsJoined;
-    discord_id = new String();
-}
+class User {}
 
-function parseDate(date) {
+async function parseDate(date) {
+    stringDate = await date.toString();
     // parse day (always starts with day)
-    const day;
-    switch (date.charAt(0)) {
+    let weekday = new String();
+    switch (stringDate.charAt(0)) {
         case 'F':
-            day = 'Friday';
+            weekday = 'Friday';
             break;
         case 'M':
-            day = 'Monday';
+            weekday = 'Monday';
             break;
         case 'W':
-            day = 'Wednesday';
+            weekday = 'Wednesday';
         case 'T':
-            if (date.charAt(1) == 'h') {
-                day = 'Thursday';
+            if (stringDate.charAt(1) == 'h') {
+                weekday = 'Thursday';
             } else {
-                day = 'Tuesday';
+                weekday = 'Tuesday';
             }
             break;
         case 'S':
-            if (date.charAt(1) == 'a') {
-                day = 'Saturday';
+            if (stringDate.charAt(1) == 'a') {
+                weekday = 'Saturday';
             } else {
-                day = 'Sunday';
+                weekday = 'Sunday';
             }
             break;
     }
@@ -94,10 +103,10 @@ function parseDate(date) {
     O: October
     S: September
     */
-    const month;
-    switch (date.charAt(4)) {
+    var month = new String();
+    switch (stringDate.charAt(4)) {
         case 'A':
-            if (date.charAt(5) == 'p') {
+            if (stringDate.charAt(5) == 'p') {
                 month = 'April';
             } else {
                 month = 'August';
@@ -108,16 +117,16 @@ function parseDate(date) {
         case 'F':
             month = 'Feburary';
         case 'J':
-            if (date.charAt(5) == 'a') {
+            if (stringDate.charAt(5) == 'a') {
                 month = 'January';
-            } else if (date.charAt(6) == 'n') {
+            } else if (stringDate.charAt(6) == 'n') {
                 month = 'June';
             } else {
                 month = 'July';
             }
             break;
         case 'M':
-            if (date.charAt(6) == 'y') {
+            if (stringDate.charAt(6) == 'y') {
                 month = 'May';
             } else {
                 month = 'March';
@@ -131,14 +140,24 @@ function parseDate(date) {
             month = 'September';
     }
     // parse day
-    const day = date.charAt(8) + date.chatAt(9);
+    day =
+        stringDate.charAt(8) +
+        stringDate.charAt(9);
     // parse year
-    const year = date.charAt(11) + date.chatAt(12) + date.charAt(13) + date.chatAt(14);
+    var year =
+        stringDate.charAt(11) +
+        stringDate.charAt(12) +
+        stringDate.charAt(13) +
+        stringDate.charAt(14);
     // parse hour
-    let hour = date.charAt(16) + date.chatAt(17);
+    let hour =
+        stringDate.charAt(16) +
+        stringDate.charAt(17);
     // parse minute
-    const minute = date.charAt(19) + date.chatAt(20);
-    const ampm;
+    var minute =
+        stringDate.charAt(19) +
+        stringDate.charAt(20);
+    var ampm = new String();
     // convert hour to 12 hour format if needed
     if (hour > 12) {
         ampm = 'AM';
@@ -148,7 +167,9 @@ function parseDate(date) {
         ampm = 'PM';
     }
 
-    return new ParsedDate(day,
+    return new ParsedDate(
+        weekday,
+        day,
         month,
         year,
         hour,
