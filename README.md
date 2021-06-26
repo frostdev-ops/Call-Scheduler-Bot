@@ -20,7 +20,7 @@ A simple node.js discord bot to plan and keep track of discord calls.
 1. Clone repo
 2. Run `npm install`
 3. Add Discord bot token and caldav auth in a `.env` file
-3. Run `node .`
+3. Run `node index.js`
 
 ## License
 https://www.gnu.org/licenses/gpl-3.0.html
